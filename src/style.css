@@ -1,0 +1,33 @@
+body {
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+}
+p {
+  margin-bottom: 3vw;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.column {
+  width: 40%;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.timer {
+  margin-left: 0.5vw;
+  color: red;
+}
+.coinChoice {
+  width: 150px;
+}
+
+.coinSelecterContainer {
+  display: flex;
+  justify-content: center;
+}

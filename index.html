@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="src/reset.css" />
+  <style>
+    p {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="middle-container container">
+    <div class="selectCoin column">
+      <div class="titleContainer coinSelecterContainer">
+          <select name="coinChoice" class="coinChoice" onchange="settingCoin()">
+            <option value="BTC" selected>비트코인</option>
+            <option value="XRP">리플</option>
+            <option value="ETH">이더리움</option>
+          </select>
+      </div>
+    </div>
+  </div>
+  <div class="top-container container">
+    <div class="binance_value column">
+      <div class="titleContainer">
+        <p id="totalValueTitle" class="title">총 자산</p>
+        <p id="totalValue" class="coin_value">0</p>
+        <p id="benefitValue" class="coin_value">0</p>
+      </div>
+    </div>
+    <div class="upbit_value column">
+      <div class="titleContainer">
+        <p id="upbitValueTitle" class="title">업비트</p>
+        <p id="upbitValue" class="coin_value">0</p>
+      </div>
+    </div>
+    <div class="binance_value column">
+      <div class="titleContainer">
+        <p id="binanceValueTitle" class="title">바이낸스</p>
+        <p id="binanceValue" class="coin_value">0</p>
+      </div>
+    </div>
+    <div class="exchange column">
+      <div class="titleContainer">
+        <p id="exchangeValueTitle" class="title">환율(10m)</p>
+        <p id="exchangeValue" class="coin_value">0</p>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container container">
+    <div class="my_upbit column">
+      <div class="titleContainer">
+        <p id="upbitPriceTitle" class="title">업비트 가격<span class="upbitTimer timer">0</span></p>
+        <p id="upbitPrice" class="coin_price">0</p>
+      </div>
+      <div class="InputContainer">
+        <ul>
+          <li>
+            <p>코인 개수</p>
+            <input id="upbitInput" type="number" value="10" />
+          </li>
+          <li>
+            <p>매수 평단</p>
+            <input id="sellUpbitInput" type="number" value="0" />
+          </li>
+          <li>
+            <p id="upbitDregsTitle">잔여 금액</p>
+            <input id=upbitDregsInput type="number" value="0" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="my_binance column">
+      <div class="titleContainer">
+        <p id="binancePriceTitle" class="title">바이낸스 가격<span class="binanceTimer timer">0</span></p>
+        <p id="binancePrice" class="coin_price">0</p>
+      </div>
+      <div class="InputContainer">
+        <ul>
+          <li>
+            <p>코인 개수</p>
+            <input id="binanceInput" type="number" />
+          </li>
+          <li>
+            <p>매수 평단</p>
+            <input id="sellBinanceInput" type="number" value="0" />
+          </li>
+          <li>
+            <p id="binanceDregsTitle">잔여 금액</p>
+            <input id=binanceDregsInput type="number" value="0" />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="src/index.js"></script>
+</body>
+
+</html>
