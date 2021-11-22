@@ -15,6 +15,7 @@ const binanceTimerTitle = document.querySelector(".binanceTimer");
 const upbitTimerTitle = document.querySelector(".upbitTimer");
 const benefitValue = document.querySelector("#benefitValue");
 const coinSelectInput = document.querySelector(".coinChoice");
+const leverageSelectInput = document.querySelector(".leverageChoice");
 
 const upbitValueSession = "upbitValue";
 const binanceValueSession = "binanceValue";
@@ -26,6 +27,7 @@ const exchangeSession = "exchange";
 const sellUpbitSession = "sellUpbit";
 const sellBinanceSession = "sellBinance";
 const selectCoinSession = "selectCoin";
+const leverageSession = "leverage";
 
 let upbit = 0;
 let binance = 0;
@@ -70,6 +72,8 @@ function parsingInput() {
   localStorage.setItem(sellBinanceSession, sellBinance);
   selectCoin = coinSelectInput.value;
   localStorage.setItem(selectCoinSession, selectCoin);
+  leverage = leverageSelectInput.value;
+  localStorage.setItem(leverageSession, leverage);
 }
 function calcPrice() {
   myUpbit = upbitCoin * upbit;
@@ -155,6 +159,10 @@ function init() {
     localStorage.getItem(selectCoinSession) != ""
       ? localStorage.getItem(selectCoinSession)
       : "BTC";
+  leverageSelectInput.value =
+    localStorage.getItem(leverageSession) != ""
+      ? parseInt(localStorage.getItem(leverageSession))
+      : 2;
   exchange = getInt(localStorage.getItem(exchangeSession));
   binance = getFloat(localStorage.getItem(binanceValueSession));
   upbit = getInt(localStorage.getItem(upbitValueSession, upbit));
@@ -178,7 +186,8 @@ function getTimer() {
 }
 function settingCoin() {
   selectCoin = coinSelectInput.value;
-  console.log("setting ", selectCoin);
+  console.log("setting ", selectCoin, leverage);
+  leverage = leverageSelectInput.value;
   switch (selectCoin) {
     case "BTC":
       upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-BTC";
