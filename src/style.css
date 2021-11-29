@@ -31,3 +31,6 @@ p {
   display: flex;
   justify-content: center;
 }
+.benefit {
+  margin-left: 0.5vw;
+}

@@ -16,6 +16,9 @@ const upbitTimerTitle = document.querySelector(".upbitTimer");
 const benefitValue = document.querySelector("#benefitValue");
 const coinSelectInput = document.querySelector(".coinChoice");
 const leverageSelectInput = document.querySelector(".leverageChoice");
+const upbitBenefitPTag = document.querySelector(".upbitBenefit");
+const binanceBenefitPTag = document.querySelector(".binanceBenefit");
+const binanceBenefitKRWPTag = document.querySelector(".binanceBenefitKRW");
 
 const upbitValueSession = "upbitValue";
 const binanceValueSession = "binanceValue";
@@ -97,6 +100,20 @@ function showPrice() {
   totalValue.textContent = (calcUpbit + calcBinance).toLocaleString() + "₩";
   symbol = benefit < 0 ? "" : "+";
   benefitValue.textContent = symbol + benefit.toLocaleString() + "₩";
+  upbitBenefitPTag.style.color = minusCheck(upbitBenefit) ? "red" : "green";
+  binanceBenefitPTag.style.color = minusCheck(binanceBenefit) ? "red" : "green";
+  binanceBenefitKRWPTag.style.color = minusCheck(binanceBenefit)
+    ? "red"
+    : "green";
+  upbitBenefitPTag.textContent = minusCheck(upbitBenefit)
+    ? upbitBenefit.toLocaleString() + "₩"
+    : "+" + upbitBenefit.toLocaleString() + "₩";
+  binanceBenefitPTag.textContent = minusCheck(binanceBenefit)
+    ? (binanceBenefit / exchange).toFixed(2) + "$"
+    : "+" + (binanceBenefit / exchange).toFixed(2) + "$";
+  binanceBenefitKRWPTag.textContent = minusCheck(binanceBenefit)
+    ? "[" + binanceBenefit.toLocaleString() + "₩" + "]"
+    : "[" + "+" + Math.round(binanceBenefit).toLocaleString() + "₩" + "]";
   sellPremium = (
     ((sellUpbit - sellBinance * exchange) / sellUpbit) *
     100
@@ -121,6 +138,9 @@ function getExchange() {
       localStorage.setItem(exchangeSession, exchange);
       exchangeValue.textContent = exchange;
     });
+}
+function minusCheck(int) {
+  return int < 0 ? true : false;
 }
 function getFloat(value) {
   if (value == NaN || value == null) return 0;
