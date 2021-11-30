@@ -79,7 +79,7 @@ function parsingInput() {
   localStorage.setItem(leverageSession, leverage);
 }
 function calcPrice() {
-  myUpbit = upbitCoin * upbit;
+  myUpbit = Math.round(upbitCoin * upbit);
   myBinance = binanceCoin * binance * exchange;
   mySellUpbit = upbitCoin * sellUpbit;
   mySellBinance = binanceCoin * sellBinance * exchange;
