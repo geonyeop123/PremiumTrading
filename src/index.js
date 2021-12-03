@@ -106,8 +106,8 @@ function showPrice() {
     ? "red"
     : "green";
   upbitBenefitPTag.textContent = minusCheck(upbitBenefit)
-    ? upbitBenefit.toLocaleString() + "₩"
-    : "+" + upbitBenefit.toLocaleString() + "₩";
+    ? Math.round(upbitBenefit).toLocaleString() + "₩"
+    : "+" + Math.round(upbitBenefit).toLocaleString() + "₩";
   binanceBenefitPTag.textContent = minusCheck(binanceBenefit)
     ? "[" + (binanceBenefit / exchange).toFixed(2) + "$" + "]"
     : "[" + "+" + (binanceBenefit / exchange).toFixed(2) + "$" + "]";
