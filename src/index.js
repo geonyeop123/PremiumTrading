@@ -19,6 +19,7 @@ const leverageSelectInput = document.querySelector(".leverageChoice");
 const upbitBenefitPTag = document.querySelector(".upbitBenefit");
 const binanceBenefitPTag = document.querySelector(".binanceBenefit");
 const binanceBenefitKRWPTag = document.querySelector(".binanceBenefitKRW");
+const premiumValue = document.querySelector(".premium_value");
 
 const upbitValueSession = "upbitValue";
 const binanceValueSession = "binanceValue";
@@ -117,6 +118,7 @@ function showPrice() {
     : "+" + Math.round(binanceBenefit).toLocaleString() + "₩";
   premium = (((upbit - binance * exchange) / upbit) * 100).toFixed(2);
   sellPremium = (parseFloat(premium) - (benefit / myUpbit) * 100).toFixed(2);
+  premiumValue.textContent = premium + "　　 " + sellPremium;
   timer = 5;
   document.title =
     premium +
