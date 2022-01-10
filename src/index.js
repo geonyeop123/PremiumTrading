@@ -118,7 +118,8 @@ function showPrice() {
     : "+" + Math.round(binanceBenefit).toLocaleString() + "₩";
   premium = (((upbit - binance * exchange) / upbit) * 100).toFixed(2);
   sellPremium = (parseFloat(premium) - (benefit / myUpbit) * 100).toFixed(2);
-  premiumValue.textContent = premium + "　　 " + sellPremium;
+  premiumValue.textContent =
+    premium + "(" + symbol + (premium - sellPremium) + ")　" + sellPremium;
   timer = 5;
   document.title =
     premium +
