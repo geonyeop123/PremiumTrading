@@ -20,6 +20,7 @@ const upbitBenefitPTag = document.querySelector(".upbitBenefit");
 const binanceBenefitPTag = document.querySelector(".binanceBenefit");
 const binanceBenefitKRWPTag = document.querySelector(".binanceBenefitKRW");
 const premiumValue = document.querySelector(".premium_value");
+const benefitPremiumValue = document.querySelector(".benefitPremium_value");
 
 const upbitValueSession = "upbitValue";
 const binanceValueSession = "binanceValue";
@@ -107,6 +108,7 @@ function showPrice() {
   binanceBenefitKRWPTag.style.color = minusCheck(binanceBenefit)
     ? "red"
     : "green";
+  benefitPremiumValue.style.color = minusCheck(benefit) ? "red" : "green";
   upbitBenefitPTag.textContent = minusCheck(upbitBenefit)
     ? Math.round(upbitBenefit).toLocaleString() + "₩"
     : "+" + Math.round(upbitBenefit).toLocaleString() + "₩";
@@ -118,8 +120,9 @@ function showPrice() {
     : "+" + Math.round(binanceBenefit).toLocaleString() + "₩";
   premium = (((upbit - binance * exchange) / upbit) * 100).toFixed(2);
   sellPremium = (parseFloat(premium) - (benefit / myUpbit) * 100).toFixed(2);
-  premiumValue.textContent =
-    premium + "(" + symbol + (premium - sellPremium) + ")　" + sellPremium;
+  premiumValue.textContent = premium + "　　 " + sellPremium;
+  benefitPremiumValue.textContent =
+    "(" + symbol + (premium - sellPremium).toFixed(2) + ")";
   timer = 5;
   document.title =
     premium +
