@@ -113,7 +113,7 @@ function showPrice() {
     ? "[" + (binanceBenefit / exchange).toFixed(2) + "$" + "]"
     : "[" + "+" + (binanceBenefit / exchange).toFixed(2) + "$" + "]";
   binanceBenefitKRWPTag.textContent = minusCheck(binanceBenefit)
-    ? binanceBenefit.toLocaleString() + "₩"
+    ? Math.round(binanceBenefit).toLocaleString() + "₩"
     : "+" + Math.round(binanceBenefit).toLocaleString() + "₩";
   premium = (((upbit - binance * exchange) / upbit) * 100).toFixed(2);
   sellPremium = (parseFloat(premium) - (benefit / myUpbit) * 100).toFixed(2);
