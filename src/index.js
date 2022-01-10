@@ -100,6 +100,7 @@ function showPrice() {
   totalValue.textContent = (calcUpbit + calcBinance).toLocaleString() + "₩";
   symbol = benefit < 0 ? "" : "+";
   benefitValue.textContent = symbol + benefit.toLocaleString() + "₩";
+  benefitValue.style.color = minusCheck(benefit) ? "red" : "green";
   upbitBenefitPTag.style.color = minusCheck(upbitBenefit) ? "red" : "green";
   binanceBenefitPTag.style.color = minusCheck(binanceBenefit) ? "red" : "green";
   binanceBenefitKRWPTag.style.color = minusCheck(binanceBenefit)
