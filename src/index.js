@@ -135,10 +135,10 @@ function showPrice() {
     sellPremium;
 }
 function getExchange() {
-  fetch("https://exchange.jaeheon.kr:23490/query/USDKRW")
+  fetch("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD")
     .then((response) => response.json())
     .then((data) => {
-      exchange = data.USDKRW[0];
+      exchange = data[0].basePrice;
       localStorage.setItem(exchangeSession, exchange);
       exchangeValue.textContent = exchange;
     });
@@ -237,5 +237,5 @@ function settingCoin() {
 }
 setInterval(getPrice, 5000);
 setInterval(getTimer, 1000);
-setInterval(getExchange, 30000);
+setInterval(getExchange, 300000);
 init();
