@@ -212,27 +212,15 @@ function settingCoin() {
   selectCoin = coinSelectInput.value;
   console.log("setting ", selectCoin, leverage);
   leverage = leverageSelectInput.value;
-  switch (selectCoin) {
-    case "BTC":
-      upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-BTC";
-      binanceURL =
-        "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
-      break;
-    case "XRP":
-      upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-XRP";
-      binanceURL =
-        "https://fapi.binance.com/fapi/v1/ticker/price?symbol=XRPUSDT";
-      break;
-    case "ETH":
-      upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-ETH";
-      binanceURL =
-        "https://fapi.binance.com/fapi/v1/ticker/price?symbol=ETHUSDT";
-      break;
-    default:
-      upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-BTC";
-      binanceURL =
-        "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
-      break;
+  if (selectCoin) {
+    upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-" + selectCoin;
+    binanceURL =
+      "https://fapi.binance.com/fapi/v1/ticker/price?symbol=" +
+      selectCoin +
+      "USDT";
+  } else {
+    upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-BTC";
+    binanceURL = "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
   }
 }
 setInterval(getPrice, 5000);
