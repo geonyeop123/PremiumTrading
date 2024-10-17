@@ -15,6 +15,7 @@ const binanceTimerTitle = document.querySelector(".binanceTimer");
 const upbitTimerTitle = document.querySelector(".upbitTimer");
 const benefitValue = document.querySelector("#benefitValue");
 const coinSelectInput = document.querySelector(".coinChoice");
+const exchangeSelectInput = document.querySelector(".exchangeChoice");
 const leverageSelectInput = document.querySelector(".leverageChoice");
 const upbitBenefitPTag = document.querySelector(".upbitBenefit");
 const binanceBenefitPTag = document.querySelector(".binanceBenefit");
@@ -32,6 +33,7 @@ const exchangeSession = "exchange";
 const sellUpbitSession = "sellUpbit";
 const sellBinanceSession = "sellBinance";
 const selectCoinSession = "selectCoin";
+const selectExchangeSession = "selectExchange";
 const leverageSession = "leverage";
 
 let upbit = 0;
@@ -49,6 +51,7 @@ let myBinance = 0;
 let mySellUpbit = 0;
 let mySellBinance = 0;
 let selectCoin = "BTC";
+let selectExchange = "BITHUMB";
 
 let upbitBenefit = 0;
 let binanceBenefit = 0;
@@ -75,6 +78,8 @@ function parsingInput() {
   localStorage.setItem(sellUpbitSession, sellUpbit);
   sellBinance = parseFloat(sellBinanceInput.value);
   localStorage.setItem(sellBinanceSession, sellBinance);
+  selectExchange = exchangeSelectInput.value;
+  localStorage.setItem(selectExchangeSession, selectExchange);
   selectCoin = coinSelectInput.value;
   localStorage.setItem(selectCoinSession, selectCoin);
   leverage = leverageSelectInput.value;
@@ -134,15 +139,15 @@ function showPrice() {
     " " +
     sellPremium;
 }
-function getExchange() {
-  fetch("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD")
-    .then((response) => response.json())
-    .then((data) => {
-      exchange = data[0].basePrice;
-      localStorage.setItem(exchangeSession, exchange);
-      exchangeValue.textContent = exchange;
-    });
-}
+// function getExchange() {
+//   fetch("https://api.bithumb.com/v1/ticker?markets=KRW-USDT")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       exchange = data[0].trade_price;
+//       localStorage.setItem(exchangeSession, exchange);
+//       exchangeValue.textContent = exchange;
+//     });
+// }
 function minusCheck(int) {
   return int < 0 ? true : false;
 }
@@ -164,7 +169,10 @@ function getPrice() {
         .then((response) => response.json())
         .then((data) => {
           upbit = data[0].trade_price;
+          exchange = data[1].trade_price;
           localStorage.setItem(upbitValueSession, upbit);
+          localStorage.setItem(exchangeSession, exchange);
+          exchangeValue.textContent = exchange;
           parsingInput();
           calcPrice();
           showPrice();
@@ -183,6 +191,10 @@ function init() {
     localStorage.getItem(selectCoinSession) != ""
       ? localStorage.getItem(selectCoinSession)
       : "BTC";
+  exchangeSelectInput.value =
+    localStorage.getItem(selectExchangeSession) != ""
+      ? localStorage.getItem(selectExchangeSession)
+      : "BITHUMB";
   leverageSelectInput.value =
     localStorage.getItem(leverageSession) != ""
       ? parseInt(localStorage.getItem(leverageSession))
@@ -191,7 +203,7 @@ function init() {
   binance = getFloat(localStorage.getItem(binanceValueSession));
   upbit = getInt(localStorage.getItem(upbitValueSession, upbit));
   settingCoin();
-  getExchange();
+  // getExchange();
   getPrice();
 }
 function getTimer() {
@@ -210,20 +222,26 @@ function getTimer() {
 }
 function settingCoin() {
   selectCoin = coinSelectInput.value;
-  console.log("setting ", selectCoin, leverage);
   leverage = leverageSelectInput.value;
+  selectExchange = exchangeSelectInput.value;
+  console.log("setting ", selectExchange, selectCoin, leverage);
+  let baseUrl =
+    selectExchange == "UPBIT"
+      ? "https://api.upbit.com/"
+      : "https://api.bithumb.com/";
+
   if (selectCoin) {
-    upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-" + selectCoin;
+    upbitURL = baseUrl + "v1/ticker?markets=KRW-" + selectCoin + ",KRW-USDT";
     binanceURL =
       "https://fapi.binance.com/fapi/v1/ticker/price?symbol=" +
       selectCoin +
       "USDT";
   } else {
-    upbitURL = "https://api.upbit.com/v1/ticker?markets=KRW-BTC";
+    upbitURL = baseUrl + "v1/ticker?markets=KRW-BTC,KRW-USDT";
     binanceURL = "https://fapi.binance.com/fapi/v1/ticker/price?symbol=BTCUSDT";
   }
 }
 setInterval(getPrice, 5000);
 setInterval(getTimer, 1000);
-setInterval(getExchange, 300000);
+// setInterval(getExchange, 5000);
 init();

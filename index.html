@@ -18,6 +18,10 @@
   <div class="middle-container container">
     <div class="selectCoin column">
       <div class="titleContainer coinSelecterContainer">
+        <select name="exchangeChoice" class="exchangeChoice" onchange="settingCoin()">
+          <option value="BITHUMB" selected>빗썸</option>
+          <option value="UPBIT">업비트</option>
+        </select>
         <select name="coinChoice" class="coinChoice" onchange="settingCoin()">
           <option value="BTC" selected>비트코인</option>
           <option value="XRP">리플</option>
