@@ -37,6 +37,7 @@ const selectExchangeSession = "selectExchange";
 const leverageSession = "leverage";
 
 let upbit = 0;
+let upbitUsdt = 0;
 let binance = 0;
 let exchange = 0;
 let upbitCoin = 0;
@@ -52,6 +53,7 @@ let mySellUpbit = 0;
 let mySellBinance = 0;
 let selectCoin = "BTC";
 let selectExchange = "BITHUMB";
+let benefitPremiumValueText = "";
 
 let upbitBenefit = 0;
 let binanceBenefit = 0;
@@ -93,7 +95,6 @@ function calcPrice() {
   upbitBenefit = myUpbit - mySellUpbit;
   binanceBenefit = mySellBinance - myBinance;
   benefit = Math.round(upbitBenefit + binanceBenefit);
-  // binanceBenefit =
 }
 function showPrice() {
   let calcUpbit = mySellUpbit + upbitBenefit + upbitDregs;
@@ -125,29 +126,23 @@ function showPrice() {
     : "+" + Math.round(binanceBenefit).toLocaleString() + "₩";
   premium = (((upbit - binance * exchange) / upbit) * 100).toFixed(2);
   sellPremium = (parseFloat(premium) - (benefit / myUpbit) * 100).toFixed(2);
+  benefitPremiumValueText = symbol + (premium - sellPremium).toFixed(2);
   premiumValue.textContent = premium + "　　 " + sellPremium;
-  benefitPremiumValue.textContent =
-    "(" + symbol + (premium - sellPremium).toFixed(2) + ")";
+  benefitPremiumValue.textContent = "(" + benefitPremiumValueText + ")";
   timer = 5;
-  document.title =
-    premium +
-    " " +
-    symbol +
-    benefit.toLocaleString() +
-    " " +
-    timer +
-    " " +
-    sellPremium;
+  setTitle();
 }
-// function getExchange() {
-//   fetch("https://api.bithumb.com/v1/ticker?markets=KRW-USDT")
-//     .then((response) => response.json())
-//     .then((data) => {
-//       exchange = data[0].trade_price;
-//       localStorage.setItem(exchangeSession, exchange);
-//       exchangeValue.textContent = exchange;
-//     });
-// }
+function getExchange() {
+  fetch(
+    "https://m.search.naver.com/p/csearch/content/qapirender.nhn?key=calculator&pkid=141&q=%ED%99%98%EC%9C%A8&where=m&u1=keb&u6=standardUnit&u7=0&u3=USD&u4=KRW&u8=down&u2=1"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      exchange = data.country[1].value.replace(",", "");
+      localStorage.setItem(exchangeSession, exchange);
+      exchangeValue.textContent = exchange;
+    });
+}
 function minusCheck(int) {
   return int < 0 ? true : false;
 }
@@ -169,10 +164,7 @@ function getPrice() {
         .then((response) => response.json())
         .then((data) => {
           upbit = data[0].trade_price;
-          exchange = data[1].trade_price;
           localStorage.setItem(upbitValueSession, upbit);
-          localStorage.setItem(exchangeSession, exchange);
-          exchangeValue.textContent = exchange;
           parsingInput();
           calcPrice();
           showPrice();
@@ -199,26 +191,29 @@ function init() {
     localStorage.getItem(leverageSession) != ""
       ? parseInt(localStorage.getItem(leverageSession))
       : 2;
-  exchange = getInt(localStorage.getItem(exchangeSession));
+  exchange = getFloat(localStorage.getItem(exchangeSession));
   binance = getFloat(localStorage.getItem(binanceValueSession));
   upbit = getInt(localStorage.getItem(upbitValueSession, upbit));
   settingCoin();
-  // getExchange();
+  getExchange();
   getPrice();
 }
 function getTimer() {
   timer--;
   upbitTimerTitle.textContent = timer;
   binanceTimerTitle.textContent = timer;
+  setTitle();
+}
+function setTitle() {
   document.title =
-    premium +
-    " " +
     symbol +
     benefit.toLocaleString() +
-    " " +
-    timer +
-    " " +
-    sellPremium;
+    " | " +
+    premium +
+    " | " +
+    benefitPremiumValueText +
+    " | " +
+    timer;
 }
 function settingCoin() {
   selectCoin = coinSelectInput.value;
@@ -243,5 +238,5 @@ function settingCoin() {
 }
 setInterval(getPrice, 5000);
 setInterval(getTimer, 1000);
-// setInterval(getExchange, 5000);
+setInterval(getExchange, 5000);
 init();
