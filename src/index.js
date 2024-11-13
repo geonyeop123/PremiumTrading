@@ -3,6 +3,7 @@ const upbitValue = document.querySelector("#upbitValue");
 const binanceValue = document.querySelector("#binanceValue");
 const totalValue = document.querySelector("#totalValue");
 const exchangeValue = document.querySelector("#exchangeValue");
+const usdtValue = document.querySelector("#usdtValue");
 const upbitPriceTitle = document.querySelector("#upbitPrice");
 const binancePriceTitle = document.querySelector("#binancePrice");
 const upbitInput = document.querySelector("#upbitInput");
@@ -35,6 +36,7 @@ const sellBinanceSession = "sellBinance";
 const selectCoinSession = "selectCoin";
 const selectExchangeSession = "selectExchange";
 const leverageSession = "leverage";
+const usdtSession = "usdtSession";
 
 let upbit = 0;
 let upbitUsdt = 0;
@@ -51,6 +53,7 @@ let myUpbit = 0;
 let myBinance = 0;
 let mySellUpbit = 0;
 let mySellBinance = 0;
+let usdt = 0;
 let selectCoin = "BTC";
 let selectExchange = "BITHUMB";
 let benefitPremiumValueText = "";
@@ -129,6 +132,7 @@ function showPrice() {
   benefitPremiumValueText = symbol + (premium - sellPremium).toFixed(2);
   premiumValue.textContent = premium + "　　 " + sellPremium;
   benefitPremiumValue.textContent = "(" + benefitPremiumValueText + ")";
+  usdtValue.textContent = "USDT : " + usdt;
   timer = 5;
   setTitle();
 }
@@ -164,7 +168,9 @@ function getPrice() {
         .then((response) => response.json())
         .then((data) => {
           upbit = data[0].trade_price;
+          usdt = data[1].trade_price;
           localStorage.setItem(upbitValueSession, upbit);
+          localStorage.setItem(usdtSession, usdt);
           parsingInput();
           calcPrice();
           showPrice();
@@ -192,6 +198,7 @@ function init() {
       ? parseInt(localStorage.getItem(leverageSession))
       : 2;
   exchange = getFloat(localStorage.getItem(exchangeSession));
+  usdt = getFloat(localStorage.getItem(usdtSession));
   binance = getFloat(localStorage.getItem(binanceValueSession));
   upbit = getInt(localStorage.getItem(upbitValueSession, upbit));
   settingCoin();
