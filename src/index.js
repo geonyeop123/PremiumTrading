@@ -132,7 +132,6 @@ function showPrice() {
   benefitPremiumValueText = symbol + (premium - sellPremium).toFixed(2);
   premiumValue.textContent = premium + "　　 " + sellPremium;
   benefitPremiumValue.textContent = "(" + benefitPremiumValueText + ")";
-  usdtValue.textContent = "USDT : " + usdt;
   timer = 5;
   setTitle();
 }
@@ -144,7 +143,7 @@ function getExchange() {
     .then((data) => {
       exchange = data.country[1].value.replace(",", "");
       localStorage.setItem(exchangeSession, exchange);
-      exchangeValue.textContent = exchange;
+      exchangeValue.textContent = exchange + "　" + usdt;
     });
 }
 function minusCheck(int) {
