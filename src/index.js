@@ -105,7 +105,11 @@ function showPrice() {
     mySellBinance / leverage + binanceDregs * exchange + binanceBenefit
   );
   upbitPriceTitle.textContent = upbit.toLocaleString();
-  binancePriceTitle.textContent = binance.toLocaleString();
+  binancePriceTitle.textContent = (
+    Math.round(binance * 100) / 100
+  ).toLocaleString("ko-KR", {
+    maximumFractionDigits: 5,
+  });
   upbitValue.textContent = calcUpbit.toLocaleString() + "₩";
   binanceValue.textContent = calcBinance.toLocaleString() + "₩";
   totalValue.textContent = (calcUpbit + calcBinance).toLocaleString() + "₩";
@@ -143,7 +147,14 @@ function getExchange() {
     .then((data) => {
       exchange = data.country[1].value.replace(",", "");
       localStorage.setItem(exchangeSession, exchange);
-      exchangeValue.textContent = exchange + "　" + usdt;
+      let titleExchange = (Math.round(exchange * 100) / 100).toLocaleString(
+        "ko-KR",
+        {
+          maximumFractionDigits: 5,
+        }
+      );
+      let titleUsdt = usdt.toLocaleString();
+      exchangeValue.textContent = titleExchange + "　" + titleUsdt;
     });
 }
 function minusCheck(int) {
