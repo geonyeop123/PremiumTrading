@@ -1,83 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="src/style.css" />
-  <link rel="stylesheet" href="src/reset.css" />
-  <style>
-    p {
-      margin-top: 10px;
-    }
-  </style>
+  <title>김프 터미널</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="src/terminal.css" />
 </head>
 
 <body>
-  <div class="middle-container container">
-    <div class="selectCoin column">
-      <div class="titleContainer coinSelecterContainer">
-        <select name="exchangeChoice" class="exchangeChoice" onchange="settingCoin()">
-          <option value="BITHUMB" selected>빗썸</option>
-          <option value="UPBIT">업비트</option>
-        </select>
-        <select name="coinChoice" class="coinChoice" onchange="settingCoin()">
-          <option value="BTC" selected>비트코인</option>
-          <option value="XRP">리플</option>
-          <option value="ETH">이더리움</option>
-        </select>
-        <select name="leverageChoice" class="leverageChoice" onchange="settingCoin()">
-          <option value="1" selected>1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+  <div class="terminal">
+
+    <header class="bar">
+      <select name="exchangeChoice" class="exchangeChoice" aria-label="국내 거래소" onchange="settingCoin()">
+        <option value="BITHUMB" selected>빗썸</option>
+        <option value="UPBIT">업비트</option>
+      </select>
+      <select name="coinChoice" class="coinChoice" aria-label="종목" onchange="settingCoin()">
+        <option value="BTC" selected>비트코인</option>
+        <option value="XRP">리플</option>
+        <option value="ETH">이더리움</option>
+      </select>
+      <span class="lev-pre">레버리지 &times;</span>
+      <select name="leverageChoice" class="leverageChoice" aria-label="레버리지" onchange="settingCoin()">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <span class="status"><span class="dot"></span>LIVE</span>
+    </header>
+
+    <section class="hero">
+      <div class="hero-head">
+        <span class="eyebrow k">김프</span>
+        <span class="eyebrow">현김프 &middot; 매수김프</span>
       </div>
-    </div>
-  </div>
-  <div class="top-container container">
-    <div class="binance_value column">
-      <div class="titleContainer">
-        <p id="totalValueTitle" class="title">총 자산</p>
-        <p id="totalValue" class="coin_value">0</p>
-        <p id="benefitValue" class="coin_value">0</p>
+      <div class="hero-row">
+        <p id="currentSellPremium" class="premium_value hero-figure"></p>
+        <span class="hero-delta">
+          <span class="k">차이</span>
+          <p id="benefitPremium" class="benefitPremium_value"></p>
+        </span>
       </div>
-      <div class="titleContainer">
-        <p id="currentSellPremiumTitle" class="title">현김프　매수김프</p>
-        <p id="currentSellPremium" class="premium_value"></p>
-        <p id="benefitPremium" class="benefitPremium_value"></p>
+    </section>
+
+    <section class="strip">
+      <div class="cell accent">
+        <span class="eyebrow k">총 자산</span>
+        <p id="totalValue" class="v">0</p>
       </div>
-    </div>
-    <div class="upbit_value column">
-      <div class="titleContainer">
-        <p id="exchangeValueTitle" class="title">환율　　　USDT</p>
-        <p id="exchangeValue" class="coin_value">0</p>
+      <div class="cell accent">
+        <span class="eyebrow k">합산 손익</span>
+        <p id="benefitValue" class="v">0</p>
       </div>
-      <div class="titleContainer">
-        <p id="binanceValueTitle" class="title">바이낸스</p>
-        <p id="binanceValue" class="coin_value">0</p>
+      <div class="cell">
+        <span class="eyebrow k">환율 &middot; USDT</span>
+        <p id="exchangeValue" class="v">0</p>
       </div>
-      <div class="titleContainer">
-        <p id="upbitValueTitle" class="title">업비트</p>
-        <p id="upbitValue" class="coin_value">0</p>
-      </div>
-    </div>
-  </div>
-  <div class="middle-container container">
-    <div class="my_upbit column">
-      <div class="titleContainer">
-        <p id="upbitPriceTitle" class="title">업비트 가격<span class="upbitTimer timer">0</span></p>
-        <p id="upbitPrice" class="coin_price">0</p><span class="upbitBenefit benefit">0</span>
-      </div>
-      <div class="InputContainer">
-        <ul>
+    </section>
+
+    <section class="ledger">
+
+      <div class="book">
+        <div class="book-head">
+          <span class="venue">국내 거래소</span>
+          <span class="sym">KRW</span>
+          <span class="upbitTimer timer">0</span>
+        </div>
+        <p id="upbitPrice" class="price">0</p>
+        <div class="pnl">
+          <span class="upbitBenefit benefit">0</span>
+        </div>
+        <div class="valuation">
+          <span class="eyebrow">현물 평가액</span>
+          <span id="upbitValue" class="v">0</span>
+        </div>
+        <ul class="fields">
           <li>
             <p>코인 개수</p>
             <input id="upbitInput" type="number" value="10" />
@@ -88,20 +97,27 @@
           </li>
           <li>
             <p id="upbitDregsTitle">잔여 금액</p>
-            <input id=upbitDregsInput type="number" value="0" />
+            <input id="upbitDregsInput" type="number" value="0" />
           </li>
         </ul>
       </div>
-    </div>
-    <div class="my_binance column">
-      <div class="titleContainer">
-        <p id="binancePriceTitle" class="title">바이낸스 가격<span class="binanceTimer timer">0</span></p>
-        <p id="binancePrice" class="coin_price">0</p>
-        <span class="binanceBenefitKRW benefit">0</span>
-        <span class="binanceBenefit benefit">0</span>
-      </div>
-      <div class="InputContainer">
-        <ul>
+
+      <div class="book">
+        <div class="book-head">
+          <span class="venue">바이낸스 선물</span>
+          <span class="sym">USDT</span>
+          <span class="binanceTimer timer">0</span>
+        </div>
+        <p id="binancePrice" class="price">0</p>
+        <div class="pnl">
+          <span class="binanceBenefitKRW benefit">0</span>
+          <span class="binanceBenefit benefit">0</span>
+        </div>
+        <div class="valuation">
+          <span class="eyebrow">증거금 + 손익</span>
+          <span id="binanceValue" class="v">0</span>
+        </div>
+        <ul class="fields">
           <li>
             <p>코인 개수</p>
             <input id="binanceInput" type="number" />
@@ -112,12 +128,14 @@
           </li>
           <li>
             <p id="binanceDregsTitle">잔여 금액</p>
-            <input id=binanceDregsInput type="number" value="0" />
+            <input id="binanceDregsInput" type="number" value="0" />
           </li>
         </ul>
       </div>
-    </div>
+
+    </section>
   </div>
+
   <script src="src/index.js"></script>
 </body>
 

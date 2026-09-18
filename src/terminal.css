@@ -197,11 +197,3 @@ body{
   .book + .book{border-left:0; border-top:1px solid var(--rule)}
   .bar .status{margin-left:0; width:100%}
 }
-/* ── 시안 배너 ─ index.html 로 승격할 때 이 블록과 preview.html 의 .preview-flag 를 함께 지운다 ── */
-.preview-flag{
-  max-width:880px; margin:0 auto 12px; padding:7px 12px;
-  border:1px dashed var(--amber-dim); background:var(--amber-wash);
-  font-size:11.5px; color:var(--ink-mid); display:flex; gap:10px; flex-wrap:wrap; align-items:baseline;
-}
-.preview-flag b{color:var(--amber); letter-spacing:.1em; font-size:10.5px}
-.preview-flag a{color:var(--ink-mid); margin-left:auto}
